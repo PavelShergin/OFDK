@@ -1,0 +1,124 @@
+{% extends 'products/base.html' %}
+{% load static humanize %}
+
+<!DOCTYPE html>
+
+{% block css %}
+    <link href="{% static 'vendor/css/products.css' %}" rel="stylesheet">
+    <style>
+        /* Стиль для толстого шрифта категорий/подкатегорий */
+        .list-group-item {
+            font-weight: bold;
+            font-family: Verdana;
+        }
+
+        /* Стиль для блока с названием выбранной категории/подкатегории */
+        .selected-category {
+            font-size: 20px;  /* Регулируйте размер шрифта по вашему вкусу */
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+          .col-lg-4.col-md-6.mb-4 {
+            width: 50%;
+        }
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-lg-3">
+
+            <h3 class="my-4">КАТАЛОГ ТОВАРОВ</h3>
+            <div class="list-group">
+                {% for category in categories %}
+                    <a href="{% if category.get_children %}{% url 'products:category' category.id %}{% else %}{% url 'products:subcategory' category.id %}{% endif %}" class="list-group-item" style="color:#333333">
+                        {{ category }}
+                    </a>
+                {% endfor %}
+            </div>
+
+        </div>
+        <!-- /.col-lg-3 -->
+
+        <div class="col-lg-9 mt-4">
+
+            {% if category %}
+                <div class="selected-category">{{ category }}</div>
+            {% endif %}
+
+            <div class="row">
+
+                {% for product in object_list %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card h-100">
+                            <a href="#">
+                                <img class="card-img-top"
+                                    src="{{ product.image.url }}"
+                                    alt="">
+                            </a>
+                            <div class="card-body">
+                                <h4 class="card-title">
+                                    <a href="#">{{product.name}}</a>
+                                </h4>
+                                <h5>{{product.price|intcomma}}р/{{ product.unit_of_measurement }}</h5>
+                                <p class="card-text">{{product.description}}</p>
+                            </div>
+                            {% if baskets.filter(product.get()) %}
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-outline-success"
+                                    href="{% url 'products:basket_add' product.id %}">
+                                         {{product}}
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="card-footer text-center">
+                                    <a class="btn btn-outline-success"
+                                    href="{% url 'products:basket_add' product.id %}">
+                                        Отправить в корзину
+                                    </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% if is_paginated %}
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
+                        <a class="page-link"
+                           href="{% if page_obj.has_previous %} {% url 'products:paginator' page_obj.previous_page_number %} {% else %} {% endif %}"
+                           tabindex="-1" aria-disabled="true">
+                            Предыдущая
+                        </a>
+                    </li>
+                    {% for page in page_obj.paginator.page_range %}
+                        <li class="page-item">
+                            <a class="page-link" href="{% url 'products:paginator' page %}">
+                                {{ page }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                    <li class="page-item {% if not page_obj.has_next  %} disabled {% endif %}">
+                        <a class="page-link"
+                           href="{% if page_obj.has_next %} {% url 'products:paginator' page_obj.next_page_number %} {% else %} # {% endif %}">
+                            Следующая
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+    

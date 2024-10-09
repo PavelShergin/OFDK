@@ -1,0 +1,83 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'vendor/css/index.css'%}" rel="stylesheet">
+    <style>
+        .row {
+            padding-left: 50px;
+            margin-right: 20px; /
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 22px; /* Увеличьте размер шрифта по вашему усмотрению */
+        }
+
+        #map {
+            width: 100%;
+            height: 400px; /* Задайте высоту карты по вашему усмотрению */
+            margin-top: 80px;
+            margin-left: 20px; /* Увеличьте отступ слева по вашему усмотрению */
+            padding-right: 50px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <h1 class="mt-5">Контакты</h1>
+
+            <div class="contact-info">
+                <p><strong>Режим работы:</strong></p>
+                <p>Пн-пт: с 8:00 до 17:00</p>
+                <p>Суббота: с 9:00 до 13:00</p>
+                <p>Воскресенье: выходной день</p>
+
+                <p><strong>Контакты:</strong></p>
+                <p>8-919-905-66-22</p>
+                <p>8-950-818-66-22</p>
+                <p>E-mail: 89199056622@mail.ru</p>
+
+                <p><strong>Адрес:</strong></p>
+                <p>427962, РФ, Удмуртская Республика г.Сарапул</p>
+                <p>ул. Путейская д.62а оф.201</p>
+            </div>
+        </div>
+
+        <div class="col-lg-6">
+            <!-- Добавлен блок для карты -->
+            <div id="map"></div>
+        </div>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% endblock %}
+
+{% block footer %}
+    {{ block.super }}
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ВАШ_API_КЛЮЧ&lang=ru_RU" type="text/javascript"></script>
+    <script>
+        ymaps.ready(init);
+
+        function init() {
+            var myMap = new ymaps.Map("map", {
+                center: [56.454031, 53.748189], // Замените координаты на нужные
+                zoom: 17 // Задайте начальный масштаб карты
+            });
+
+            // Добавьте метку (можете изменить местоположение метки)
+            myMap.geoObjects.add(new ymaps.Placemark([56.454031, 53.748189], {
+                balloonContent: 'Ваш адрес'
+            }, {
+                preset: 'islands#icon',
+                iconColor: '#0095b6' // Цвет метки
+            }));
+        }
+    </script>
+{% endblock %}

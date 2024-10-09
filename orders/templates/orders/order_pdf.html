@@ -1,0 +1,39 @@
+{% load static %}
+{% load i18n %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order Excel</title>
+</head>
+<body>
+    <h1>Order Details</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Продукт</th>
+                <th>Стоимость</th>
+                <th>Количество</th>
+                <th>Итого</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.items.all %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.quantity }}/ед</td>
+                <td>{{ item.get_cost }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total">
+                <td colspan="3">Total:</td>
+                <td>{{ order.get_total_cost }}</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

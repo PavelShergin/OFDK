@@ -1,0 +1,56 @@
+body {
+    background: url("../img/wallpaper.jpg") no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+
+    color: #000000;
+}
+
+#start-purchase-btn {
+    background-color: #822222;
+    border-color: #23364e;
+    color: white;
+}
+
+#start-purchase-link {
+    text-decoration: none;
+    color: white;
+}
+
+#start-purchase-btn2 {
+    background-color: #822222;
+    border-color: #23364e;
+    color: white;
+}
+
+#start-purchase-link2 {
+    text-decoration: none;
+    color: white;
+}
+
+#start-purchase-btn3 {
+    background-color: #822222;
+    border-color: #23364e;
+    color: white;
+}
+
+#start-purchase-link3 {
+    text-decoration: none;
+    color: white;
+}
+
+@media (max-width: 768px) {
+  .d-none {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #start-purchase-btn,
+  #start-purchase-btn2,
+  #start-purchase-btn3 {
+    margin-bottom: 10px;
+  }
+}

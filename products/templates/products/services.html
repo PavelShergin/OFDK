@@ -1,0 +1,56 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'vendor/css/index.css'%}" rel="stylesheet">
+    <style>
+        .services {
+            margin-top: 20px;
+            padding-left: 50px;
+            margin-right: 20px;
+        }
+
+        .services ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .services li {
+            margin-bottom: 10px;
+            font-size: 22px; /* Размер текста услуги */
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="services">
+                <h1 class="mt-5">Наши услуги:</h1>
+                <ul>
+                    <li><strong>•Резка</strong></li>
+                    <li><strong>•Погрузка</strong></li>
+                    <li><strong>•Доставка</strong></li>
+                    <li><strong>•Хранение</strong></li>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}
